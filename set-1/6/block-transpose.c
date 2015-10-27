@@ -21,22 +21,16 @@ static const float alphafreq[27] = {
 	2.758, 0.978, 2.361, 0.150, 1.974, 0.074, 15.000,
 };
 
-float charfreq_score(const unsigned char x)
+long charfreq_score(const unsigned char x)
 {
-	float score = 0.0;
+	long score = 0L;
 
 	if (isprint(x)) {
-		score = 1.0;
-
-		// Multiply to scale above less common chars.
-		if (islower(x) || isalpha(x))
-			score = alphafreq[(x - 'a')] * 10;
-		else if (isupper(x))
-			score = 2.0;
+		score = 1L;
+		if (isalpha(x))
+			score = 4L * (long) alphafreq[tolower(x) - 'a'];
 		else if (isdigit(x))
-			score = 1.5;
-		else if (isspace(x) || ispunct(x))
-			score = 1.0;
+			score = 2L;
 	}
 
 	return score;
@@ -54,9 +48,8 @@ static void xorbuf(unsigned const char *restrict in,
 int main(int argc, const char *argv[])
 {
 	FILE *file;
-	float old_score, score;
 	int  keysize, status, block_size, block, total_size, i, c, byte_key;
-	long filesize;
+	long filesize, old_score, score;
 	char *blocks, *cur, *multibyte_key;
 
 	file     = NULL;
@@ -110,38 +103,43 @@ int main(int argc, const char *argv[])
 		fputs("Cannot allocate memory for the multibyte key.\n", stderr);
 		EXIT(7)
 	}
-	// multibyte_key[keysize] = '\0';
-	memset(multibyte_key, '\0', keysize + 1);
+	// memset(multibyte_key, '\0', keysize + 1); // Init all to zero.
+	memset(multibyte_key, '*', keysize); // Init all values to '*'.
+	multibyte_key[keysize] = '\0';
+
+	fprintf(stderr, "Initialized multibyte_key: '%s'.\n", multibyte_key);
 
 	// TODO: Solve individual blocks as one-byte XOR.
-	for (block = 0, old_score = 0.0; block < keysize; block++) {
+	for (block = 0; block < keysize; block++) {
 		cur = blocks + (block * block_size);
 
 		fprintf(stderr, "On block %d.\n", block);
 
-		for (byte_key = 0; byte_key < (1<<8); byte_key++) {
+		for (byte_key = 0, old_score = 0L; byte_key < (1<<8); byte_key++) {
+			// fprintf(stderr,
+			// 		"Trying byte_key %03d... ", (unsigned int) byte_key);
 
-			fprintf(stderr,
-					"Trying byte_key %03d... ", (unsigned int) byte_key);
-
-			for (i = 0, score = 0.0; i < block_size; i++)
+			for (i = 0, score = 0L; i < block_size; i++)
 				score += charfreq_score(cur[i] ^ (unsigned char) byte_key);
 
-			fprintf(stderr, "Got score %.4f.\n", score);
+			// fprintf(stderr, "Got score %.4f.\n", score);
 
 			if (score > old_score) {
 				old_score = score;
 				multibyte_key[block] = byte_key;
-				fprintf(stderr, "New best score! ('%c')\n", byte_key);
+				fprintf(stderr, "New best score (%d)! (byte_key: '%c')\n",
+						old_score, byte_key);
 			}
 		}
 
-		fprintf(stderr, "Best score: %.4f, for byte_key '%c'.\n",
-				old_score, multibyte_key[block]);
+		fprintf(stderr, "Best score: %d, for byte_key '%c'<0x%x>.\n",
+				old_score, multibyte_key[block], multibyte_key[block]);
 	}
 
-	printf("File: '%s'.\nKeysize: %d.\n\tFound multibyte key: '%s'.\n",
+	fprintf(stderr, "File: '%s'.\nKeysize: %d.\n\tFound multibyte key: '%s'.\n",
 			argv[2], keysize, multibyte_key);
+
+	puts(multibyte_key);
 
 exit: // Fallthrough on success.
 	if (file)
