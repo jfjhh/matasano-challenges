@@ -3,6 +3,8 @@
  * Alex Striff
  *
  * Breaks multi-char key XOR crypto on a file, trying with a given keysize.
+ * Prints extra (debug) information to stderr, but if you just want the key,
+ * ignore stderr and only look at stdout.
  */
 
 #include <stdio.h>
@@ -25,24 +27,14 @@ long charfreq_score(const unsigned char x)
 {
 	long score = 0L;
 
-	if (isprint(x)) {
+	if (islower(x))
+		score = (long) (12.0 * alphafreq[tolower(x) - 'a']);
+	else if (isupper(x))
+		score = (long) (6.0  * alphafreq[tolower(x) - 'a']);
+	else if (isspace(x) || ispunct(x))
 		score = 1L;
-		if (isalpha(x))
-			score = 4L * (long) alphafreq[tolower(x) - 'a'];
-		else if (isdigit(x))
-			score = 2L;
-	}
 
 	return score;
-}
-
-static void xorbuf(unsigned const char *restrict in,
-		unsigned char *restrict out, unsigned char pad, int length)
-{
-	int i;
-
-	for (i = 0; i < length; i++)
-		*out++ = *in++ ^ pad;
 }
 
 int main(int argc, const char *argv[])
@@ -107,13 +99,13 @@ int main(int argc, const char *argv[])
 	memset(multibyte_key, '*', keysize); // Init all values to '*'.
 	multibyte_key[keysize] = '\0';
 
-	fprintf(stderr, "Initialized multibyte_key: '%s'.\n", multibyte_key);
+	// fprintf(stderr, "Initialized multibyte_key: '%s'.\n", multibyte_key);
 
-	// TODO: Solve individual blocks as one-byte XOR.
+	// Solve individual blocks as one-byte XOR.
 	for (block = 0; block < keysize; block++) {
 		cur = blocks + (block * block_size);
 
-		fprintf(stderr, "On block %d.\n", block);
+		fprintf(stderr, "On block %d.\t", block);
 
 		for (byte_key = 0, old_score = 0L; byte_key < (1<<8); byte_key++) {
 			// fprintf(stderr,
@@ -127,12 +119,12 @@ int main(int argc, const char *argv[])
 			if (score > old_score) {
 				old_score = score;
 				multibyte_key[block] = byte_key;
-				fprintf(stderr, "New best score (%d)! (byte_key: '%c')\n",
-						old_score, byte_key);
+				// fprintf(stderr, "New best score (%ld)! (byte_key: '%c')\n",
+				// 		old_score, byte_key);
 			}
 		}
 
-		fprintf(stderr, "Best score: %d, for byte_key '%c'<0x%x>.\n",
+		fprintf(stderr, "Best score: %ld, for byte_key '%c'<0x%x>.\n",
 				old_score, multibyte_key[block], multibyte_key[block]);
 	}
 
@@ -146,6 +138,6 @@ exit: // Fallthrough on success.
 		fclose(file);
 	free(blocks);
 	free(multibyte_key);
-	return 0;
+	return status;
 }
 
