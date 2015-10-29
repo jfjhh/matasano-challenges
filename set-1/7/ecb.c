@@ -1,24 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <openssl/ssl.h>
+#include <openssl/aes.h>
 
-int main(void)
+#define BLOCKSIZE	16
+
+int main(int argc, const char *argv[])
 {
-	SSL *ssl;
-	SSL_CTX *ctx;
+	int i, c;
+	AES_KEY key;
+	unsigned char buf[BLOCKSIZE], decrypted_buf[BLOCKSIZE + 1];
+	FILE *file          = NULL;
+	unsigned char *pass = (unsigned char *) "YELLOW SUBMARINE";
 
-	SSL_library_init();
-
-	if (!(ctx = SSL_CTX_new(method))) {
-		fputs("Could not make a SSL_CTX structure!\n");
+	if (argc != 2 || !(file = fopen(argv[1], "rb"))) {
+		fputs("Usage: ./ecb <filename>\n", stderr);
 		return 1;
 	}
 
-	if (!(ssl = SSL_new(ctx))) {
-		fputs("Could not make a SSL structure!\n");
-		return 1;
+	AES_set_decrypt_key(pass, 128, &key);
+
+	while (c != EOF) {
+		for (i = 0; i < BLOCKSIZE; i++)
+			if ((c = fgetc(file)) == EOF)
+				break;
+			else
+				buf[i] = c;
+
+		AES_decrypt(buf, decrypted_buf, &key);
+		decrypted_buf[i] = '\0';
+		fputs((char *) decrypted_buf, stdout);
 	}
 
+	if (file)
+		fclose(file);
 	return 0;
 }
 
