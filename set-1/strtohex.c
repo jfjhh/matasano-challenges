@@ -11,12 +11,10 @@ static int tohex(unsigned char c)
 	else if (c >= 'A' && c <= 'F')
 		return (c - 'A') + 0xA;
 	else
-		fprintf(stderr, "Recieved non-hex char: '%c' (hex: '%x')\n", c, c);
-
-	return EOF;
+		return EOF;
 }
 
-unsigned char *strtohex(const unsigned char *ascii, int inlen)
+unsigned char *strtohex(const unsigned char *ascii, size_t inlen)
 {
 	int i, c, d;
 	unsigned char *out;
