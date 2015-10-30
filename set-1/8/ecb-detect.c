@@ -1,11 +1,12 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
+/* #define BLOCK_SIZE	16 */
+#define BLOCK_SIZE	8
+
 #define IN_LINES	204
 #define LINE_LEN	320
-#define BLOCK_SIZE	8
 
 #define HEX_LEN		(LINE_LEN / 2)
 #define BLOCKS		(LINE_LEN / BLOCK_SIZE)
@@ -57,7 +58,7 @@ int main(int argc, const char *argv[])
 	unsigned char buf[IN_LINES][HEX_LEN];
 	FILE *file = NULL;
 
-	if (argc != 2 || !(file = fopen(argv[1], "rb"))) { // Check args.
+	if (argc != 2 || !(file = fopen(argv[1], "rb"))) { /* Check args. */
 		fputs("Usage: `./ecb-detect <filename>`,\n"
 				"File contains ascii-encoded hex, one encrypted with AES in "
 				"ECB mode, separated by newlines (see './README.md').\n",
@@ -68,7 +69,7 @@ int main(int argc, const char *argv[])
 	candidate = candidate_equal = new_equal = 0;
 	memset(buf, '\0', IN_LINES * HEX_LEN);
 
-	// Convert ASCII-encoded hex lines to (raw hex) byte arrays.
+	/* Convert ASCII-encoded hex lines to (raw hex) byte arrays. */
 	for (i = 0; i < IN_LINES; i++) {
 		for (j = 0; j < HEX_LEN; j++) {
 			x = fgetc(file);
@@ -104,7 +105,7 @@ int main(int argc, const char *argv[])
 		}
 	}
 
-	// Print the result.
+	/* Print the result. */
 	printf("Best found candidate for being encrypted with ECS (line %d):\n",
 			candidate + 1);
 	for (j = 0; j < HEX_LEN; j++)
