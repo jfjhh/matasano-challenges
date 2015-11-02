@@ -2,6 +2,7 @@
 #define ORACLE_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "aes_info.h"
 
