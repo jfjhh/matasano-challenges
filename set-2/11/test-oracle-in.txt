@@ -1,0 +1,112 @@
+An ECB/CBC detection oracle
+===========================
+
+Now that you have ECB and CBC working:
+LRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR 
+Jevgr n shapgvba gb trarengr n enaqbz NRF xrl; gung'f whfg 16 enaqbz olgrf.
+
+Jevgr n shapgvba gung rapelcgf qngn haqre na haxabja xrl --- gung vf, n
+LRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR 
+function that generates a random key and encrypts under it.
+
+The function should look like:
+
+    encryption_oracle(your-input)
+    => [MEANINGLESS JIBBER JABBER]
+
+Under the hood, have the function append 5-10 bytes (count chosen randomly)
+before the plaintext and 5-10 bytes after the plaintext.
+
+YELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE 
+Now, have the function choose to encrypt under ECB 1/2 the time, and under CBC
+the other half (just use random IVs each time for CBC). Use rand(2) to decide
+which to use.
+
+Qrgrpg gur oybpx pvcure zbqr gur shapgvba vf hfvat rnpu gvzr. Lbh fubhyq raq hc
+jvgu n cvrpr bs pbqr gung, cbvagrq ng n oybpx obk gung zvtug or rapelcgvat RPO
+be POP, gryyf lbh juvpu bar vf unccravat.
+
+Na RPO/POP qrgrpgvba benpyr
+===========================
+
+Abj gung lbh unir RPO naq POP jbexvat:
+YELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE 
+
+Jevgr n shapgvba gb trarengr n enaqbz NRF xrl; gung'f whfg 16 enaqbz olgrf.
+
+Write a function that encrypts data under an unknown key --- that is, a
+function that generates a random key and encrypts under it.
+
+The function should look like:
+
+    rapelcgvba_benpyr(lbhe-vachg)
+    => [ZRNAVATYRFF WVOORE WNOORE]
+YELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE 
+
+Haqre gur ubbq, unir gur shapgvba nccraq 5-10 olgrf (pbhag pubfra enaqbzyl)
+orsber gur cynvagrkg naq 5-10 olgrf nsgre gur cynvagrkg.
+
+Abj, unir gur shapgvba pubbfr gb rapelcg haqre RPO 1/2 gur gvzr, naq haqre POP
+the other half (just use random IVs each time for CBC). Use rand(2) to decide
+which to use.
+
+Detect the block cipher mode the function is using each time. You should end up
+with a piece of code that, pointed at a block box that might be encrypting ECB
+or CBC, tells you which one is happening.
+
+LRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR 
+Na RPO/POP qrgrpgvba benpyr
+===========================
+
+Now that you have ECB and CBC working:
+
+Jevgr n shapgvba gb trarengr n enaqbz NRF xrl; gung'f whfg 16 enaqbz olgrf.
+
+Jevgr n shapgvba gung rapelcgf qngn haqre na haxabja xrl --- gung vf, n
+shapgvba gung trarengrf n enaqbz xrl naq rapelcgf haqre vg.
+
+Gur shapgvba fubhyq ybbx yvxr:
+
+    encryption_oracle(your-input)
+YELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINEYELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE YELLOW SUBMARINE 
+    => [MEANINGLESS JIBBER JABBER]
+
+Under the hood, have the function append 5-10 bytes (count chosen randomly)
+before the plaintext and 5-10 bytes after the plaintext.
+
+Now, have the function choose to encrypt under ECB 1/2 the time, and under CBC
+gur bgure unys (whfg hfr enaqbz VIf rnpu gvzr sbe POP). Hfr enaq(2) gb qrpvqr
+juvpu gb hfr.
+
+Qrgrpg gur oybpx pvcure zbqr gur shapgvba vf hfvat rnpu gvzr. Lbh fubhyq raq hc
+jvgu n cvrpr bs pbqr gung, cbvagrq ng n oybpx obk gung zvtug or rapelcgvat RPO
+be POP, gryyf lbh juvpu bar vf unccravat.
+
+An ECB/CBC detection oracle
+LRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR 
+===========================
+
+Abj gung lbh unir RPO naq POP jbexvat:
+
+Jevgr n shapgvba gb trarengr n enaqbz NRF xrl; gung'f whfg 16 enaqbz olgrf.
+
+Jevgr n shapgvba gung rapelcgf qngn haqre na haxabja xrl --- gung vf, n
+shapgvba gung trarengrf n enaqbz xrl naq rapelcgf haqre vg.
+
+The function should look like:
+
+    encryption_oracle(your-input)
+    => [MEANINGLESS JIBBER JABBER]
+
+Under the hood, have the function append 5-10 bytes (count chosen randomly)
+LRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVARLRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR LRYYBJ FHOZNEVAR 
+before the plaintext and 5-10 bytes after the plaintext.
+
+Now, have the function choose to encrypt under ECB 1/2 the time, and under CBC
+gur bgure unys (whfg hfr enaqbz VIf rnpu gvzr sbe POP). Hfr enaq(2) gb qrpvqr
+juvpu gb hfr.
+
+Qrgrpg gur oybpx pvcure zbqr gur shapgvba vf hfvat rnpu gvzr. Lbh fubhyq raq hc
+jvgu n cvrpr bs pbqr gung, cbvagrq ng n oybpx obk gung zvtug or rapelcgvat RPO
+be POP, gryyf lbh juvpu bar vf unccravat.
+

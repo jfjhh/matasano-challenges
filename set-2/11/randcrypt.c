@@ -18,7 +18,7 @@ int rand_crypt(unsigned char *const *restrict in, const size_t *inlen,
 	int           status;
 	size_t        before, after, modlen, padlen;
 	unsigned char key[BLOCKSIZE], IV[BLOCKSIZE], *modified_in;
-	enum          encryption_mode { ECB, CBC, } mode;
+	enum          encryption_mode { ECB = 0, CBC = 1, } mode;
 
 	/* Set to failure values by default. */
 	*out    = NULL;
@@ -48,6 +48,9 @@ int rand_crypt(unsigned char *const *restrict in, const size_t *inlen,
 
 	rand_bytes(key, BLOCKSIZE); /* Encrypt with a random key. */
 	mode = rand_range(0, 1);    /* Random mode: ECB or CBC. */
+
+	printf("rand_crypt: (%d) Enrypting with AES mode %s.\n",
+			mode, (mode == ECB ? "ECB" : "CBC"));
 
 	if (mode == ECB) {
 		status = ecb_crypt(modified_in, *out, modlen, key,     ENCRYPT);

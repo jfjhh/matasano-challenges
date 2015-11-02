@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "buf_encrypt.h"
 #include "randcrypt.h"
@@ -15,7 +16,7 @@ int main(int argc, const char *argv[])
 	unsigned char *in, *out, *tmp;
 
 	if (argc != 2) {
-		fputs("Usage: ./randcrypt <filename>\n", stderr);
+		fputs("Usage: ./test-oracle <filename>\n", stderr);
 		return 1;
 	} else if (!(file = fopen(argv[1], "rb"))) {
 		fprintf(stderr, "Could not open file '%s'.\n", argv[3]);
@@ -42,6 +43,7 @@ int main(int argc, const char *argv[])
 	while ((c = fgetc(file)) != EOF)
 		*tmp++ = c;
 
+	srand(time(NULL));
 	if ((status = rand_crypt(&in, &inlen, &out, &outlen)) != 0)
 		fprintf(stderr, "ecb_crypt failed: returned %d.\n", status);
 	else

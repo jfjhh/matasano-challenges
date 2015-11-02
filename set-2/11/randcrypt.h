@@ -2,6 +2,7 @@
 #define RANDCRYPT_H
 
 #include <stdlib.h>
+#include <stdio.h> /* DEBUGGING: Allows knowlege of the AES mode. */
 #include <string.h>
 #include <openssl/aes.h>
 

@@ -5,6 +5,9 @@
 #include <stdio.h>
 
 #include "aes_info.h"
+#include "buf_encrypt.h"
+
+#define ORACLE_BLOCKSIZE	BLOCKSIZE
 
 typedef enum {
 	ECB,
