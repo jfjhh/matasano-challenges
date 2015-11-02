@@ -1,0 +1,6 @@
+test-oracle
+test-crypt
+buf_encrypt.o
+oracle.o
+randcrypt.o
+
